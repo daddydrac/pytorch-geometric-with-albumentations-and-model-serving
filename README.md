@@ -16,7 +16,8 @@ https://hub.docker.com/r/jhoeller/computer-vision
 ### Features ###
 - Anaconda: Accelerated Python, version 3.7.3
 - CuPy: GPU accelerated drop in for Numpy
-- OpenCV, latest version which compiles for GPU in the container
+- OpenCV & Albumentations for image pre-processing
+- OpenCV is latest version which compiles for GPU in the container
 - PyTorch with Torchvision and geometric (Graph CNNs) for GPU, latest version
 - Tensorboard for Torch
 - NVIDIA TensorRT inference accelerator for Tensor core access and CUDA 10.1 for GPUs
@@ -29,17 +30,7 @@ Press tab to see what methods you have access to by clicking tab.
 
 ![jupyter-tabnine](https://raw.githubusercontent.com/wenmin-wu/jupyter-tabnine/master/images/demo.gif)
 
-
-### Security Concern for Code Hinting ###
-
-The enabled code hinting for the Juypter Notebook causes a known security breach, if security is a concern go into the Dockerfile and comment out line 119:
-
-
-1. Line 119: ` RUN pip install jupyter-tabnine `
-
-2. Code hinting won't be installed, but this shores up/fixes the security exploit.
-
-3. You can use the new [VSCode](https://code.visualstudio.com/download) and install the [Python module](https://marketplace.visualstudio.com/items?itemName=ms-python.python) which supports code hinting, as well as chart generation. It works no different than a jupyter notebook does, as an alternative option to presereve same dev features. Just open an existing project in VSCode at the ``` /app ``` folder level, and it will automatically do "hot-updates" and reload the container for you, as you save your work and run it from VSCode. (So don't worry, all the charts and things you're used to seeing in juypter will be generated in VSCode for you via the container).
+You can use the new [VSCode](https://code.visualstudio.com/download) and install the [Python module](https://marketplace.visualstudio.com/items?itemName=ms-python.python) which supports code hinting, as well as chart generation. It works no different than a jupyter notebook does, as an alternative option to presereve same dev features. Just open an existing project in VSCode at the ``` /app ``` folder level, and it will automatically do "hot-updates" and reload the container for you, as you save your work and run it from VSCode. (So don't worry, all the charts and things you're used to seeing in juypter will be generated in VSCode for you via the container).
 
 --------------------------------------------------------------------------------
 ### Before you begin (This might be optional) ###
