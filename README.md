@@ -1,15 +1,14 @@
 ### NVIDIA GPU/Tensor Core Accelerator for PyTorch Geometric Tensorboard + OpenCV
 A complete computer vision container that includes Jupyter notebooks with built-in code hinting, Anaconda, CUDA-X, TensorRT inference accelerator for Tensor cores, CuPy (GPU drop in replacement for Numpy), PyTorch, TF2, Tensorboard, and OpenCV for accelerated workloads on NVIDIA Tensor cores and GPUs.
 
-There are working notebook examples on how to wire up, both Torch and TF2 to Tensorboard; Tensorflow Serving/TFX does model serving via REST API on port 8501, which can be configured for monitoring statistical concept drift as well.
+There are working notebook examples on how to wire up, both Torch and TF2 to Tensorboard; MLFLow, Seldon Core or FastAPI does model serving via REST API which can be configured for monitoring statistical concept drift as well.
 
 -----------------------------------------------------------
 
 It takes a while for OpenCV to compile for CUDA, so if you want to skip the build process to save time you can pull the pre-built image from DockerHub here:
 
-https://hub.docker.com/r/jhoeller/computer-vision
 
-``` docker pull jhoeller/computer-vision ```
+``` docker pull jhoeller/ ```
 
 -----------------------------------------------------------
 
