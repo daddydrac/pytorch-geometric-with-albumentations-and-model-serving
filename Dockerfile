@@ -1,5 +1,5 @@
 FROM nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04
-ENV DEBIAN_FRONTEND noninteractive
+
 # Core Linux Deps
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y --fix-missing --no-install-recommends apt-utils \
         build-essential \
@@ -53,7 +53,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y --fix-mi
     rm -rf /var/lib/apt/lists/*  && \
     apt-get clean && rm -rf /tmp/* /var/tmp/*
 
-ENV DEBIAN_FRONTEND noninteractive
 
 # Install cmake version that supports anaconda python path
 RUN wget -O cmake.tar.gz https://github.com/Kitware/CMake/releases/download/v3.15.4/cmake-3.15.4-Linux-x86_64.tar.gz
@@ -68,14 +67,15 @@ RUN rm -rf cmake-3.15.4-Linux-x86_64
 RUN rm -rf cmake.tar.gz
 
 
-# Install TensorRT (Tensor Core Access) and runtime libs
-RUN apt-get install --no-install-recommends \
+# Install development and runtime libraries (~4GB)
+RUN sudo apt-get install --no-install-recommends \
     cuda-10-1 \
     libcudnn7=7.6.5.32-1+cuda10.1  \
     libcudnn7-dev=7.6.5.32-1+cuda10.1
 
 
-RUN apt-get install -y --no-install-recommends libnvinfer6=6.0.1-1+cuda10.1 \
+# Install TensorRT. Requires that libcudnn7 is installed above.
+RUN sudo apt-get install -y --no-install-recommends libnvinfer6=6.0.1-1+cuda10.1 \
     libnvinfer-dev=6.0.1-1+cuda10.1 \
     libnvinfer-plugin6=6.0.1-1+cuda10.1
 
@@ -122,11 +122,12 @@ RUN ${PIP} --no-cache-dir install --upgrade \
     mlflow \
     seldon-core \
     albumentations \
+    networkx \
+    jupyter-tabnine \
+    shap \
+    tensor-sensor \
     fastapi
     
-
-# Add auto-complete to Juypter
-RUN pip install jupyter-tabnine
 
 
 RUN conda update -n base -c defaults conda
@@ -139,6 +140,7 @@ RUN conda install -c anaconda ipykernel
 RUN conda install -c anaconda seaborn 
 RUN conda install -c anaconda ipython
 RUN conda install -c conda-forge tensorboard
+RUN conda install captum -c pytorch
 
 RUN pip install torch-scatter==latest+cu101 -f https://pytorch-geometric.com/whl/torch-1.6.0.html
 RUN pip install torch-sparse==latest+cu101 -f https://pytorch-geometric.com/whl/torch-1.6.0.html
