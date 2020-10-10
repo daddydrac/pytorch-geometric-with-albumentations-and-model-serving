@@ -119,17 +119,17 @@ RUN ${PIP} --no-cache-dir install --upgrade \
     scikit-image \
     scikit-learn \
     matplotlib \
-    pyinstrument \
-    mlflow \
-    seldon-core \
-    albumentations \
-    networkx \
-    jupyter-tabnine \
-    shap \
-    tensor-sensor \
-    fastapi
-    
+    pyinstrument 
 
+
+RUN pip install mlflow 
+RUN pip seldon-core 
+RUN pip albumentations 
+RUN pip networkx 
+RUN pip jupyter-tabnine 
+RUN pip shap 
+RUN pip tensor-sensor 
+RUN pip fastapi
 
 RUN conda update -n base -c defaults conda
 RUN conda install -c anaconda jupyter 
