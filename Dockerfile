@@ -70,14 +70,14 @@ RUN rm -rf cmake.tar.gz
 # Install development and runtime libraries (~4GB)
 RUN apt-get install --no-install-recommends \
     cuda-10-1 \
-    libcudnn7=7.6.5.32-1+cuda10.1  \
-    libcudnn7-dev=7.6.5.32-1+cuda10.1
+    libcudnn7=7.6.5.32-1+cuda10.2  \
+    libcudnn7-dev=7.6.5.32-1+cuda10.2
 
 
 # Install TensorRT. Requires that libcudnn7 is installed above.
-RUN apt-get install -y --no-install-recommends libnvinfer6=6.0.1-1+cuda10.1 \
-    libnvinfer-dev=6.0.1-1+cuda10.1 \
-    libnvinfer-plugin6=6.0.1-1+cuda10.1
+RUN apt-get install -y --no-install-recommends libnvinfer6=6.0.1-1+cuda10.2 \
+    libnvinfer-dev=6.0.1-1+cuda10.2 \
+    libnvinfer-plugin6=6.0.1-1+cuda10.2
 
 RUN file="$(ls -1 /usr/local/)" && echo $file
 
