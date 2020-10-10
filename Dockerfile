@@ -69,7 +69,7 @@ RUN rm -rf cmake.tar.gz
 
 # Install development and runtime libraries (~4GB)
 RUN apt-get install --no-install-recommends \
-    cuda-10-1 \
+    cuda-10-2 \
     libcudnn7=7.6.5.32-1+cuda10.2  \
     libcudnn7-dev=7.6.5.32-1+cuda10.2
 
