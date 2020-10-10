@@ -1,4 +1,4 @@
-FROM nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04
+FROM nvidia/cuda:10.1-cudnn8-devel-ubuntu18.04
 
 # Core Linux Deps
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y --fix-missing --no-install-recommends apt-utils \
@@ -68,18 +68,19 @@ RUN rm -rf cmake.tar.gz
 
 
 # Install development and runtime libraries (~4GB)
-RUN apt-get install --no-install-recommends \
-    cuda-10-2 \
-    libcudnn7=7.6.5.32-1+cuda10.2  \
-    libcudnn7-dev=7.6.5.32-1+cuda10.2
+# RUN apt-get install --no-install-recommends \
+#    cuda-10-2 \
+#    libcudnn7=7.6.5.32-1+cuda10.2  \
+#    libcudnn7-dev=7.6.5.32-1+cuda10.2
 
-
+# RUN apt-get install -y python3-libnvinfer-dev
+# RUN apt-get install onnx-graphsurgeon
 # Install TensorRT. Requires that libcudnn7 is installed above.
-RUN apt-get install -y --no-install-recommends libnvinfer6=6.0.1-1+cuda10.2 \
-    libnvinfer-dev=6.0.1-1+cuda10.2 \
-    libnvinfer-plugin6=6.0.1-1+cuda10.2
+# RUN apt-get install -y --no-install-recommends libnvinfer6=6.0.1-1+cuda10.2 \
+#    libnvinfer-dev=6.0.1-1+cuda10.2 \
+#    libnvinfer-plugin6=6.0.1-1+cuda10.2
 
-RUN file="$(ls -1 /usr/local/)" && echo $file
+# RUN file="$(ls -1 /usr/local/)" && echo $file
 
 
 # Fix conda errors per Anaconda team until they can fix
