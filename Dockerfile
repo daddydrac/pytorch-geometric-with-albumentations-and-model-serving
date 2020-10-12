@@ -1,5 +1,5 @@
-FROM nvidia/cuda:10.1-cudnn8-devel-ubuntu18.04
-
+FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04
+ENV DEBIAN_FRONTEND noninteractive
 # Core Linux Deps
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y --fix-missing --no-install-recommends apt-utils \
         build-essential \
@@ -53,6 +53,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y --fix-mi
     rm -rf /var/lib/apt/lists/*  && \
     apt-get clean && rm -rf /tmp/* /var/tmp/*
 
+ENV DEBIAN_FRONTEND noninteractive
 
 # Install cmake version that supports anaconda python path
 RUN wget -O cmake.tar.gz https://github.com/Kitware/CMake/releases/download/v3.15.4/cmake-3.15.4-Linux-x86_64.tar.gz
@@ -67,20 +68,13 @@ RUN rm -rf cmake-3.15.4-Linux-x86_64
 RUN rm -rf cmake.tar.gz
 
 
-# Install development and runtime libraries (~4GB)
-# RUN apt-get install --no-install-recommends \
-#    cuda-10-2 \
-#    libcudnn7=7.6.5.32-1+cuda10.2  \
-#    libcudnn7-dev=7.6.5.32-1+cuda10.2
+# Install TensorRT (TPU Access)
+RUN apt-get update && \
+        apt-get install -y nvinfer-runtime-trt-repo-ubuntu1804-5.0.2-ga-cuda10.0 && \
+        apt-get update && \
+        apt-get install -y libnvinfer5=5.0.2-1+cuda10.0
 
-# RUN apt-get install -y python3-libnvinfer-dev
-# RUN apt-get install onnx-graphsurgeon
-# Install TensorRT. Requires that libcudnn7 is installed above.
-# RUN apt-get install -y --no-install-recommends libnvinfer6=6.0.1-1+cuda10.2 \
-#    libnvinfer-dev=6.0.1-1+cuda10.2 \
-#    libnvinfer-plugin6=6.0.1-1+cuda10.2
-
-# RUN file="$(ls -1 /usr/local/)" && echo $file
+RUN file="$(ls -1 /usr/local/)" && echo $file
 
 
 # Fix conda errors per Anaconda team until they can fix
@@ -93,7 +87,7 @@ rm Miniconda3-latest-Linux-x86_64.sh
 ENV PATH /opt/conda/bin:$PATH
 
 
-# For CUDA profiling, requires CUPTI.
+# For CUDA profiling, TensorFlow requires CUPTI.
 ENV LD_LIBRARY_PATH /usr/local/cuda/extras/CUPTI/lib64:$LD_LIBRARY_PATH
 
 
@@ -119,36 +113,36 @@ RUN ${PIP} --no-cache-dir install --upgrade \
     scikit-image \
     scikit-learn \
     matplotlib \
-    pyinstrument 
+    pyinstrument
 
-
+# Add auto-complete to Juypter
+RUN pip install jupyter-tabnine
+RUN pip install cupy-cuda101
 RUN pip install mlflow 
-RUN pip seldon-core 
-RUN pip albumentations 
-RUN pip networkx 
-RUN pip jupyter-tabnine 
-RUN pip shap 
-RUN pip tensor-sensor 
-RUN pip fastapi
-
-RUN conda update -n base -c defaults conda
-RUN conda install -c anaconda jupyter 
-RUN conda install pytorch torchvision cudatoolkit=10.1 -c pytorch
-RUN conda update conda
-RUN conda install numba
-RUN conda install -c anaconda cupy 
-RUN conda install -c anaconda ipykernel 
-RUN conda install -c anaconda seaborn 
-RUN conda install -c anaconda ipython
-RUN conda install -c conda-forge tensorboard
-RUN conda install captum -c pytorch
-
+RUN pip install seldon-core 
+RUN pip install albumentations 
+RUN pip install networkx 
+RUN pip install jupyter-tabnine 
+RUN pip install shap 
+RUN pip install tensor-sensor 
+RUN pip install fastapi
 RUN pip install torch-scatter==latest+cu101 -f https://pytorch-geometric.com/whl/torch-1.6.0.html
 RUN pip install torch-sparse==latest+cu101 -f https://pytorch-geometric.com/whl/torch-1.6.0.html
 RUN pip install torch-cluster==latest+cu101 -f https://pytorch-geometric.com/whl/torch-1.6.0.html
 RUN pip install torch-spline-conv==latest+cu101 -f https://pytorch-geometric.com/whl/torch-1.6.0.html
 RUN pip install torch-geometric
 
+RUN conda update -n base -c defaults conda
+RUN conda install -c anaconda jupyter 
+RUN conda install pytorch torchvision cudatoolkit=10.0 -c pytorch
+RUN conda update conda
+RUN conda install numba
+RUN conda install -c anaconda ipykernel 
+RUN conda install -c anaconda seaborn 
+RUN conda install -c anaconda ipython
+RUN conda install -c conda-forge tensorboard
+RUN conda install captum -c pytorch
+ 
 WORKDIR /
 RUN wget -O opencv.zip https://github.com/opencv/opencv/archive/master.zip
 RUN wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/master.zip
