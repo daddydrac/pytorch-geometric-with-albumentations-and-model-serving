@@ -116,6 +116,7 @@ RUN ${PIP} --no-cache-dir install --upgrade \
     pyinstrument
 
 # Add auto-complete to Juypter
+RUN pip install torch==1.6.0+cu101 torchvision==0.7.0+cu101 -f https://download.pytorch.org/whl/torch_stable.html
 RUN pip install jupyter-tabnine
 RUN pip install cupy-cuda101
 RUN pip install mlflow 
@@ -134,7 +135,7 @@ RUN pip install torch-geometric
 
 RUN conda update -n base -c defaults conda
 RUN conda install -c anaconda jupyter 
-RUN conda install pytorch torchvision cudatoolkit=10.0 -c pytorch
+#RUN conda install pytorch torchvision cudatoolkit=10.0 -c pytorch
 RUN conda update conda
 RUN conda install numba
 RUN conda install -c anaconda ipykernel 
