@@ -1,4 +1,4 @@
-FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04
+FROM nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04
 ENV DEBIAN_FRONTEND noninteractive
 # Core Linux Deps
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y --fix-missing --no-install-recommends apt-utils \
