@@ -166,7 +166,7 @@ RUN cmake -DBUILD_TIFF=ON \
 		#   -DBUILD_PERF_TESTS=OFF \
 		  -DCMAKE_BUILD_TYPE=RELEASE \
 		  -DCMAKE_INSTALL_PREFIX=$(python -c "import sys; print(sys.prefix)") \
-		  -D PYTHON3_EXECUTABLE=$(which python3) \
+		  -D PYTHON3_EXECUTABLE=$(which python) \
                   -D PYTHON_INCLUDE_DIR=$(python3 -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())") \
                   -D PYTHON_INCLUDE_DIR2=$(python3 -c "from os.path import dirname; from distutils.sysconfig import get_config_h_filename; print(dirname(get_config_h_filename()))") \
                   -D PYTHON_LIBRARY=$(python3 -c "from distutils.sysconfig import get_config_var;from os.path import dirname,join ; print(join(dirname(get_config_var('LIBPC')),get_config_var('LDLIBRARY')))") \
@@ -174,7 +174,7 @@ RUN cmake -DBUILD_TIFF=ON \
                   -DOPENCV_ENABLE_NONFREE=ON \
                   -DOPENCV_EXTRA_MODULES_PATH=/opencv_contrib/modules \
                   -DBUILD_EXAMPLES=ON \
-                  -D CUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-10.0 \
+                  -D CUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-10.1 \
                   -DWITH_QT=ON ..
                  
 RUN make -j4 \
