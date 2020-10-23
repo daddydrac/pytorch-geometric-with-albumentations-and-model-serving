@@ -66,12 +66,6 @@ RUN cp -r man /usr/share/
 WORKDIR /
 RUN rm -rf cmake-3.15.4-Linux-x86_64
 RUN rm -rf cmake.tar.gz
-
-
-# Install TensorRT (TPU Access)
-RUN apt-get install -y --no-install-recommends libnvinfer6=6.0.1-1+cuda10.1 \
-    libnvinfer-dev=6.0.1-1+cuda10.1 \
-    libnvinfer-plugin6=6.0.1-1+cuda10.1
     
 
 RUN file="$(ls -1 /usr/local/)" && echo $file
