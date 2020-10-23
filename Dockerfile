@@ -69,10 +69,16 @@ RUN rm -rf cmake.tar.gz
 
 
 # Install TensorRT (TPU Access)
+RUN apt-get install --no-install-recommends \
+    cuda-10-1 \
+    libcudnn7=7.6.5.32-1+cuda10.1  \
+    libcudnn7-dev=7.6.5.32-1+cuda10.1
+
 RUN apt-get update && \
-        apt-get install -y nvinfer-runtime-trt-repo-ubuntu1804-5.0.2-ga-cuda10.0 && \
+        apt-get install -y nvinfer-runtime-trt-repo-ubuntu1804-6.0.1-ga-cuda10.1 && \
         apt-get update && \
-        apt-get install -y libnvinfer5=5.0.2-1+cuda10.0
+        apt-get install -y libnvinfer6=6.0.1-1+cuda10.1
+	
 
 RUN file="$(ls -1 /usr/local/)" && echo $file
 
