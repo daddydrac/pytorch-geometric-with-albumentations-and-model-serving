@@ -139,8 +139,8 @@ RUN conda install -c conda-forge tensorboard
 RUN conda install captum -c pytorch
  
 WORKDIR /
-RUN wget -O opencv.zip https://github.com/opencv/opencv/archive/master.zip
-RUN wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/master.zip
+RUN wget -O opencv.zip https://github.com/opencv/opencv/archive/4.5.0.zip
+RUN wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/4.5.0.zip
 RUN unzip opencv.zip
 RUN unzip opencv_contrib.zip
 RUN mv opencv-master opencv
