@@ -173,7 +173,7 @@ RUN cmake -DBUILD_TIFF=ON \
                   -D PYTHON3_PACKAGES_PATH=$(python3 -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())") \
                   -DOPENCV_ENABLE_NONFREE=ON \
                   -DOPENCV_EXTRA_MODULES_PATH=/opencv_contrib/modules \
-                  -DBUILD_EXAMPLES=ON \
+                  -DBUILD_EXAMPLES=OFF \
                   -D CUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-10.1 \
                   -DWITH_QT=ON ..
                  
