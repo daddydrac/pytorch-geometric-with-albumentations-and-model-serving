@@ -143,8 +143,8 @@ RUN wget -O opencv.zip https://github.com/opencv/opencv/archive/4.5.0.zip
 RUN wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/4.5.0.zip
 RUN unzip opencv.zip
 RUN unzip opencv_contrib.zip
-RUN mv opencv-master opencv
-RUN mv opencv_contrib-master opencv_contrib
+RUN mv opencv-4.5.0 opencv
+RUN mv opencv_contrib-4.5.0 opencv_contrib
 RUN mkdir /opencv/build
 WORKDIR /opencv/build
 
